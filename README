@@ -20,7 +20,7 @@ tset usbhidaction usbhidctl vi vmstat w x99token xinstall xlint ypcat
 ypmatch ypwhich
 
 Already ported tools are not built:
-cvs less mg nc ssh sudo tmux
+less mg nc ssh sudo tmux
 
 This is very alpha, and the tools haven't been tested very well yet.
 At least the ALIGN-macro is defined only meaningfully for x86_64.

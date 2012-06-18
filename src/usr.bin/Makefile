@@ -21,6 +21,7 @@ SUBDIR +=	cpp
 SUBDIR +=	csplit
 SUBDIR +=	ctags
 SUBDIR +=	cut
+SUBDIR +=	cvs
 SUBDIR +=	dc
 SUBDIR +=	deroff
 SUBDIR +=	diff
