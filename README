@@ -2,18 +2,9 @@ This is obase, a port of the OpenBSD userland to Linux.
 You need to have OpenSSL installed to build it.
 
 Most OS-independent tools just work, with a few exceptions:
-- grep is not built because grep -F cannot be implemented on glibc regcomp.
+- grep is not built because grep -F cannot be implemented on
+  glibc regcomp.
 - tail is not built because tail -f depends on kqueue.
-
-Already ported tools are not built:
-cvs less mg nc ssh sudo tmux
-
-This is very alpha, and the tools haven't been tested very well yet.
-At least the ALIGN-macro is defined only meaningfully for x86_64.
-
-                                                Christian Neukirchen
-                                              chneukirchen@gmail.com
-
 
 Also not ported are:
 
@@ -27,3 +18,14 @@ sendbug showmount skey skeyaudit skeyinfo skeyinit stat strip stty su
 systat systrace tail talk tcopy tcpbench telnet tftp tic tip top tput
 tset usbhidaction usbhidctl vi vmstat w x99token xinstall xlint ypcat
 ypmatch ypwhich
+
+Already ported tools are not built:
+cvs less mg nc ssh sudo tmux
+
+This is very alpha, and the tools haven't been tested very well yet.
+At least the ALIGN-macro is defined only meaningfully for x86_64.
+
+Original author: Christian Neukirchen <chneukirchen@gmail.com>
+Author of this fork: Antti Harri <iku@openbsd.fi>
+
+Please contact the latter about possible problems.
