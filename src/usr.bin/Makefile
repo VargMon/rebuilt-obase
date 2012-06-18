@@ -53,6 +53,7 @@ SUBDIR +=	jot
 SUBDIR +=	lam
 SUBDIR +=	last
 SUBDIR +=	leave
+SUBDIR +=	less
 SUBDIR +=	lex
 SUBDIR +=	lndir
 SUBDIR +=	logger

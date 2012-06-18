@@ -72,6 +72,9 @@ extern int fd0;
 #if HAVE_SYS_PTEM_H
 #include <sys/ptem.h>
 #endif
+#ifndef TCSASOFT
+#define TCSASOFT 0
+#endif
 
 #endif /* MSDOS_COMPILER */
 
