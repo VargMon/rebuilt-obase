@@ -1,5 +1,11 @@
-src/ is straight from OpenBSD CVS with tiny modifications.
+src/ is straight from OpenBSD CVS with tiny modifications
+which means they have mostly BSD/ISC licensing.
+
 libobase/ is from OpenBSD CVS, FreeBSD CVS and libbsd.
 
-The /Makefile and unmarked headers in libobase/include/
-are in the public domain.
+The unmarked headers in libobase/include/ are in the public
+domain. Unmarked Makefiles are public domain as well as
+they probably don't contain enough material to be copyrightable
+in the first place.
+
+Always refer to file header for licensing info.
