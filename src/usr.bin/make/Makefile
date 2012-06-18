@@ -1,7 +1,18 @@
 #	$OpenBSD: Makefile,v 1.52 2010/10/17 22:54:37 schwarze Exp $
 
 PROG=	make
+MACHINE_ARCH != uname -m
+# This will break on some architectures,
+# but so far I haven't found a way to get
+# this information on Linux
+#
+# Check the make's manual for details about those
+# variables.
+MACHINE_CPU  != uname -m
+
+STATIC ?= -static
 CFLAGS+= -I${.OBJDIR} -I${.CURDIR}
+CFLAGS+= -DMACHINE_ARCH=\"${MACHINE_ARCH}\" -DMACHINE_CPU=\"${MACHINE_CPU}\"
 HOSTCFLAGS+= -I${.OBJDIR} -I${.CURDIR}
 CDIAGFLAGS=-Wall -W -Wno-char-subscripts -Wstrict-prototypes -pedantic \
 	-Wmissing-prototypes
@@ -15,6 +26,7 @@ CDEFS+=-DHAS_EXTENDED_GETCWD
 CFLAGS+=${CDEFS}
 HOSTCFLAGS+=${CDEFS}
 LDADD=	-lrt
+LDADD+=	${STATIC}
 
 SRCS=	arch.c buf.c cmd_exec.c compat.c cond.c dir.c direxpand.c engine.c \
 	error.c for.c init.c job.c lowparse.c main.c make.c memory.c parse.c \
@@ -23,7 +35,9 @@ SRCS=	arch.c buf.c cmd_exec.c compat.c cond.c dir.c direxpand.c engine.c \
 SRCS+=	lstAddNew.c lstAppend.c lstConcat.c lstConcatDestroy.c \
 	lstDeQueue.c lstDestroy.c lstDupl.c lstFindFrom.c lstForEachFrom.c \
 	lstInsert.c lstMember.c lstRemove.c lstReplace.c lstRequeue.c lstSucc.c
-.PATH:	${.CURDIR}/lst.lib
+SRCS+=	getopt_long.c
+
+.PATH:	${.CURDIR}/lst.lib ${.CURDIR}/openbsd
 
 CLEANFILES+=generate generate.o regress.o check
 

@@ -30,7 +30,7 @@ LIBOBJ=	lst.lib/lstAddNew.o lst.lib/lstAppend.o \
 	lst.lib/lstMember.o lst.lib/lstRemove.o lst.lib/lstReplace.o \
 	lst.lib/lstSucc.o
 
-bmake: varhashconsts.h ${OBJ} ${LIBOBJ}
+bmake: nodehashconsts.h condhashconsts.h varhashconsts.h ${OBJ} ${LIBOBJ}
 #	@echo 'make of make and make.0 started.'
 	${CC} ${CFLAGS} ${OBJ} ${LIBOBJ} -o bmake ${LIBS}
 	@ls -l $@
@@ -54,8 +54,12 @@ generate: ${GENOBJ}
 
 varhashconsts.h: generate
 	./generate 1 77 > varhashconsts.h
+condhashconsts.h: generate
+	./generate 2 65 > condhashconsts.h
+nodehashconsts.h: generate
+	./generate 3 0 > nodehashconsts.h
 
 clean:
 	rm -f ${OBJ} ${LIBOBJ} ${PORTOBJ} ${GENOBJ} ${OHASHOBJ} bmake
-	rm -f varhashconsts.h generate
+	rm -f nodehashconsts.h condhashconsts.h varhashconsts.h generate
 

@@ -1,0 +1,55 @@
+#!/bin/sh
+#
+# Copyright (c) 2012 Antti Harri <iku@openbsd.fi>
+#
+# Permission to use, copy, modify, and distribute this software for any
+# purpose with or without fee is hereby granted, provided that the above
+# copyright notice and this permission notice appear in all copies.
+#
+# THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+# WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+# MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+# ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+# WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+# ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+# OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+#
+
+set -eux
+
+BASE=$(cd -- "$(dirname -- "$0")"; pwd)
+OBASE=../../../libobase
+OHASH_DIR=$OBASE
+
+. "${OBASE}/../bootstrap.inc"
+
+CFLAGS="$CFLAGS -I${BASE} -DHAS_BOOL_H -DHAS_PATHS_H -DHAS_EXTENDED_GETCWD -DMACHINE_ARCH=\"${MARCH}\""
+LDFLAGS="${LDFLAGS} -lrt"
+
+SRCS="$LIBOHASH_SRCS generate.c stats.c memory.c"
+compile_objs
+link_objs generate
+
+# may need tweaking if you add variable synonyms or change the hash function
+MAGICVARSLOTS=77
+MAGICCONDSLOTS=65
+
+./generate 1 ${MAGICVARSLOTS} > varhashconsts.h
+./generate 2 ${MAGICCONDSLOTS} > condhashconsts.h
+./generate 3 0 > nodehashconsts.h
+
+SRCS="	$LIBOHASH_SRCS \
+	arch.c buf.c cmd_exec.c compat.c cond.c dir.c direxpand.c engine.c \
+	error.c for.c init.c job.c lowparse.c main.c make.c memory.c parse.c \
+	parsevar.c str.c stats.c suff.c targ.c targequiv.c timestamp.c \
+	var.c varmodifiers.c varname.c \
+	lst.lib/lstAddNew.c lst.lib/lstAppend.c lst.lib/lstConcat.c lst.lib/lstConcatDestroy.c \
+	lst.lib/lstDeQueue.c lst.lib/lstDestroy.c lst.lib/lstDupl.c lst.lib/lstFindFrom.c lst.lib/lstForEachFrom.c \
+	lst.lib/lstInsert.c lst.lib/lstMember.c lst.lib/lstRemove.c lst.lib/lstReplace.c lst.lib/lstRequeue.c lst.lib/lstSucc.c \
+	openbsd/getopt_long.c \
+	$OBASE/fgetln.c $OBASE/strtonum.c"
+
+compile_objs
+link_objs make
+
+rm -f varhashconsts.h condhashconsts.h nodehashconsts.h

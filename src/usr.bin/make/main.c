@@ -66,6 +66,10 @@
 #include "memory.h"
 #include "make.h"
 
+#ifndef __OpenBSD__
+#include "openbsd/getopt.h"
+#endif
+
 #ifndef PATH_MAX
 # ifdef MAXPATHLEN
 #  define PATH_MAX (MAXPATHLEN+1)
@@ -211,7 +215,7 @@ MainParseArgs(int argc, char **argv)
 				optend++;	/* "--" denotes end of flags */
 			}
 		}
-		c = optend ? -1 : getopt(argc, argv, OPTFLAGS);
+		c = optend ? -1 : my_getopt(argc, argv, OPTFLAGS);
 		switch (c) {
 		case 'D':
 			Var_Set(optarg, "1");

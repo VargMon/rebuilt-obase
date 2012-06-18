@@ -2,35 +2,131 @@
 
 .include <bsd.own.mk>
 
-SUBDIR= apply apropos ar arch asa asn1_compile at aucat audioctl awk banner \
-	basename bc bdes bgplg \
-	biff cal calendar cap_mkdb cdio chpass cmp col colrm \
-	column comm compile_et compress cpp crontab csplit ctags cut \
-	dc deroff diff diff3 dirname du encrypt env expand false file \
-	file2c find fgen finger fmt fold from fsplit fstat ftp gencat getcap \
-	getconf getent getopt gprof grep gzsig head hexdump id indent \
-	infocmp ipcrm ipcs \
-	join jot kdump keynote ktrace lam last lastcomm leave less lex lndir \
-	locate lock logger login logname look lorder \
-	m4 mail make man mandoc mesg mg \
-	midiplay mixerctl mkdep mklocale mkstr mktemp modstat nc netstat \
-	newsyslog \
-	nfsstat nice nm nohup oldrdist pagesize passwd paste patch pctr \
-	pkg-config pkill \
-	pmdb pr printenv printf quota radioctl ranlib rcs rdist rdistd \
-	readlink renice rev rpcgen rpcinfo rs rsh rup ruptime rusers rwall \
-	rwho sdiff script sed sendbug shar showmount skey \
-	skeyaudit skeyinfo skeyinit sort spell split sqlite3 ssh stat su systat \
-	sudo tail talk tcopy tcpbench tee telnet tftp tic time tip \
-	tmux top touch tput tr true tset tsort tty usbhidaction usbhidctl \
-	ul uname unexpand unifdef uniq units \
-	unvis users uudecode uuencode vacation vi vis vmstat w wall wc \
-	what whatis which who whois write x99token xargs xinstall \
-	xstr yacc yes
+SUBDIR =	apply
+SUBDIR +=	apropos
+SUBDIR +=	ar
+SUBDIR +=	arch
+SUBDIR +=	asa
+SUBDIR +=	awk
+SUBDIR +=	banner
+SUBDIR +=	basename
+SUBDIR +=	biff
+SUBDIR +=	cal
+SUBDIR +=	cmp
+SUBDIR +=	col
+SUBDIR +=	colrm
+SUBDIR +=	column
+SUBDIR +=	comm
+SUBDIR +=	cpp
+SUBDIR +=	csplit
+SUBDIR +=	ctags
+SUBDIR +=	cut
+SUBDIR +=	dc
+SUBDIR +=	deroff
+SUBDIR +=	diff
+SUBDIR +=	diff3
+SUBDIR +=	dirname
+SUBDIR +=	du
+SUBDIR +=	env
+SUBDIR +=	expand
+SUBDIR +=	false
+SUBDIR +=	fgen
+SUBDIR +=	file
+SUBDIR +=	file2c
+SUBDIR +=	finger
+SUBDIR +=	fmt
+SUBDIR +=	fold
+SUBDIR +=	from
+SUBDIR +=	fsplit
+SUBDIR +=	getconf
+SUBDIR +=	getent
+SUBDIR +=	getopt
+SUBDIR +=	gzsig
+SUBDIR +=	head
+SUBDIR +=	hexdump
+SUBDIR +=	id
+SUBDIR +=	indent
+SUBDIR +=	ipcrm
+SUBDIR +=	join
+SUBDIR +=	jot
+SUBDIR +=	lam
+SUBDIR +=	last
+SUBDIR +=	leave
+SUBDIR +=	lex
+SUBDIR +=	lndir
+SUBDIR +=	logger
+SUBDIR +=	logname
+SUBDIR +=	look
+SUBDIR +=	lorder
+SUBDIR +=	m4
+SUBDIR +=	mail
+SUBDIR +=	make
+SUBDIR +=	man
+SUBDIR +=	mandoc
+SUBDIR +=	mesg
+SUBDIR +=	mkdep
+SUBDIR +=	mkstr
+SUBDIR +=	mktemp
+SUBDIR +=	nice
+SUBDIR +=	nohup
+SUBDIR +=	paste
+SUBDIR +=	patch
+SUBDIR +=	pkg-config
+SUBDIR +=	pr
+SUBDIR +=	printenv
+SUBDIR +=	printf
+SUBDIR +=	ranlib
+SUBDIR +=	rcs
+SUBDIR +=	readlink
+SUBDIR +=	renice
+SUBDIR +=	rev
+SUBDIR +=	rpcgen
+SUBDIR +=	rpcinfo
+SUBDIR +=	rs
+SUBDIR +=	script
+SUBDIR +=	sdiff
+SUBDIR +=	sed
+SUBDIR +=	shar
+SUBDIR +=	sort
+SUBDIR +=	spell
+SUBDIR +=	split
+SUBDIR +=	strings
+SUBDIR +=	tee
+SUBDIR +=	time
+SUBDIR +=	touch
+SUBDIR +=	tr
+SUBDIR +=	true
+SUBDIR +=	tsort
+SUBDIR +=	tty
+SUBDIR +=	ul
+SUBDIR +=	uname
+SUBDIR +=	unexpand
+SUBDIR +=	unifdef
+SUBDIR +=	uniq
+SUBDIR +=	units
+SUBDIR +=	unvis
+SUBDIR +=	users
+SUBDIR +=	uudecode
+SUBDIR +=	uuencode
+SUBDIR +=	vacation
+SUBDIR +=	vis
+SUBDIR +=	wall
+SUBDIR +=	wc
+SUBDIR +=	what
+SUBDIR +=	whatis
+SUBDIR +=	which
+SUBDIR +=	who
+SUBDIR +=	whois
+SUBDIR +=	write
+SUBDIR +=	xargs
+SUBDIR +=	xstr
+SUBDIR +=	yacc
+SUBDIR +=	yes
 
-.if (${YP:L} == "yes")
-SUBDIR+=ypcat ypmatch ypwhich
-.endif
+
+#.if (${YP:L} == "yes")
+#SUBDIR+=ypcat ypmatch ypwhich
+#.endif
 
 .if (${ELF_TOOLCHAIN:L} == "no")
 SUBDIR+= strip strings
