@@ -16,7 +16,7 @@ netstat newsyslog nfsstat nm oldrdist passwd pcc pctr pkill pmdb ps
 quota radioctl rcp rdist rdistd rsh rup ruptime rusers rwall rwho
 sendbug showmount skey skeyaudit skeyinfo skeyinit stat strip stty su
 systat systrace tail talk tcopy tcpbench telnet tftp tic tip top tput
-tset usbhidaction usbhidctl vi vmstat w x99token xinstall xlint ypcat
+tset usbhidaction usbhidctl vi vmstat w x99token ypcat
 ypmatch ypwhich
 
 Already ported tools are not built:

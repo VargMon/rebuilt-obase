@@ -56,6 +56,11 @@
 #define NOCHANGEBITS	(UF_IMMUTABLE | UF_APPEND | SF_IMMUTABLE | SF_APPEND)
 #define BACKUP_SUFFIX	".old"
 
+/* Workaround for systems that don't have EFTYPE defined */
+#ifndef EFTYPE
+#define EFTYPE EPERM
+#endif
+
 struct passwd *pp;
 struct group *gp;
 int dobackup, docompare, dodir, dopreserve, dostrip, safecopy;
@@ -102,10 +107,12 @@ main(int argc, char *argv[])
 			/* For backwards compatibility. */
 			break;
 		case 'f':
+#if 0
 			flags = optarg;
 			if (strtofflags(&flags, &fset, NULL))
 				errx(EX_USAGE, "%s: invalid flag", flags);
 			iflags |= SETFLAGS;
+#endif
 			break;
 		case 'g':
 			group = optarg;
@@ -353,13 +360,14 @@ install(char *from_name, char *to_name, u_long fset, u_int flags)
 	 * If provided a set of flags, set them, otherwise, preserve the
 	 * flags, except for the dump flag.
 	 */
+#if 0
 	if (fchflags(to_fd,
 	    flags & SETFLAGS ? fset : from_sb.st_flags & ~UF_NODUMP)) {
 		if (errno != EOPNOTSUPP || (from_sb.st_flags & ~UF_NODUMP) != 0)
 			warnx("%s: chflags: %s", 
 			    safecopy ? tempfile :to_name, strerror(errno));
 	}
-
+#endif
 	(void)close(to_fd);
 	if (!devnull)
 		(void)close(from_fd);
@@ -369,9 +377,11 @@ install(char *from_name, char *to_name, u_long fset, u_int flags)
 	 * and the files are different (or just not compared).
 	 */
 	if (safecopy && !files_match) {
+#if 0
 		/* Try to turn off the immutable bits. */
 		if (to_sb.st_flags & (NOCHANGEBITS))
 			(void)chflags(to_name, to_sb.st_flags & ~(NOCHANGEBITS));
+#endif
 		if (dobackup) {
 			char backup[MAXPATHLEN];
 			(void)snprintf(backup, MAXPATHLEN, "%s%s", to_name,
@@ -632,9 +642,10 @@ create_newfile(char *path, struct stat *sbp)
 	 * off the append/immutable bits -- if we fail, go ahead,
 	 * it might work.
 	 */
+#if 0
 	if (sbp->st_flags & (NOCHANGEBITS))
 		(void)chflags(path, sbp->st_flags & ~(NOCHANGEBITS));
-
+#endif
 	if (dobackup) {
 		(void)snprintf(backup, MAXPATHLEN, "%s%s", path, suffix);
 		/* It is ok for the target file not to exist. */

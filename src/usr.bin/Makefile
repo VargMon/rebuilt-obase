@@ -121,17 +121,18 @@ SUBDIR +=	who
 SUBDIR +=	whois
 SUBDIR +=	write
 SUBDIR +=	xargs
+SUBDIR +=	xinstall
 SUBDIR +=	xstr
 SUBDIR +=	yacc
 SUBDIR +=	yes
 
 
-#.if (${YP:L} == "yes")
+.if (${YP:L} == "yes")
 #SUBDIR+=ypcat ypmatch ypwhich
-#.endif
+.endif
 
 .if (${ELF_TOOLCHAIN:L} == "no")
-SUBDIR+= strip strings
+#SUBDIR+= strip strings
 .endif
 
 .include <bsd.subdir.mk>
