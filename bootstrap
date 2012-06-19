@@ -17,6 +17,11 @@
 
 set -eux
 
+SUDO=${SUDO:-}
+
+MY_DESTDIR=${DESTDIR}
+unset DESTDIR
+
 TMP=$(mktemp -d)
 trap "rm -rf \"$TMP\"" 0 1 13 15
 
@@ -24,7 +29,7 @@ trap "rm -rf \"$TMP\"" 0 1 13 15
 (cd src/usr.bin/make ; CFLAGS="-D_PATH_DEFSYSPATH=\"$TMP\"" ./bootstrap ; mv -f make "$TMP"/; cp -f templates/* "$TMP"/)
 (cd src/usr.bin/sort ; ./bootstrap ; mv -f sort "$TMP"/)
 (cd src/usr.bin/tsort ; ./bootstrap ; mv -f tsort "$TMP"/)
-(cd src/usr.bin/lorder ; cp -f lorder.sh "$TMP"/lorder; chmod 755 "$TMP"/lorder)
+cp -f src/usr.bin/lorder/lorder.sh "$TMP"/lorder ; chmod 755 "$TMP"/lorder
 
 MAKE="$TMP/make"
 PATH=$TMP:$PATH
@@ -32,4 +37,10 @@ PATH=$TMP:$PATH
 (cd libobase && $MAKE)
 
 # Make the whole tree using our tools.
-PATH=$PATH $MAKE
+PATH="$PATH" $MAKE
+
+cp -f src/usr.bin/xinstall/xinstall "$TMP"/install
+cp -f src/usr.sbin/mtree/mtree "$TMP"/
+
+$SUDO DESTDIR="$MY_DESTDIR" PATH="$PATH" $MAKE distrib-dirs
+$SUDO DESTDIR="$MY_DESTDIR" PATH="$PATH" $MAKE install
