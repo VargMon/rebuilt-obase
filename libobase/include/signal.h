@@ -16,5 +16,5 @@ static const char *sys_signame[] =
 	"57","58","59","60","61","62","63","64"
 };
 
-#include_next <signal.h>
 #endif
+#include_next <signal.h>
