@@ -15,7 +15,7 @@
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 #
 
-set -eux
+set -eu
 
 OBASE=../../../libobase
 OHASH_DIR=$OBASE
