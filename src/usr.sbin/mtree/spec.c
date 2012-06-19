@@ -193,14 +193,11 @@ set(char *t, NODE *ip)
 				error("%s", strerror(errno));
 			break;
 		case F_FLAGS:
-			if (!strcmp(val, "none")) {
+			if (strcmp("none", val) == 0)
 				ip->file_flags = 0;
-				break;
-			}
-			if (strtofflags(&val, &fset, &fclr))
-				error("%s", strerror(errno));
-			ip->file_flags = fset;
-			break; 
+			else
+				errx(1, "line %d: invalid flag %s",lineno, val);
+ 			break;
 		case F_GID:
 			ip->st_gid = strtoul(val, &ep, 10);
 			if (*ep)
