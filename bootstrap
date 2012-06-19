@@ -40,6 +40,11 @@ $MAKE clean
 
 (cd libobase && $MAKE)
 
+# Cheat by making a stub mandoc
+echo '#!/bin/sh' > "$TMP/mandoc" ; chmod 755 "$TMP/mandoc"
+(cd src/usr.bin/mandoc ; env PATH="$PATH" MAKECONF="$TMP/mk.conf" $MAKE)
+cp -f src/usr.bin/mandoc/mandoc "$TMP"/
+
 # Make the whole tree using our tools.
 env PATH="$PATH" MAKECONF="$TMP/mk.conf" $MAKE
 
