@@ -42,5 +42,5 @@ PATH="$PATH" $MAKE
 cp -f src/usr.bin/xinstall/xinstall "$TMP"/install
 cp -f src/usr.sbin/mtree/mtree "$TMP"/
 
-$SUDO DESTDIR="$MY_DESTDIR" PATH="$PATH" $MAKE distrib-dirs
-$SUDO DESTDIR="$MY_DESTDIR" PATH="$PATH" $MAKE install
+$SUDO env DESTDIR="$MY_DESTDIR" PATH="$PATH" $MAKE distrib-dirs
+$SUDO env DESTDIR="$MY_DESTDIR" PATH="$PATH" $MAKE install
