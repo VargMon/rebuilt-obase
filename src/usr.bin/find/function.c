@@ -554,7 +554,7 @@ c_exec(char *unused, char ***argvp, int isok)
 			c += strlen(*argv) + 1;
  			new->e_argv[cnt] = *argv;
  		}
-		bufsize = ARG_MAX - 4 * 1024 - c;
+		bufsize = sysconf(_SC_ARG_MAX) - 4 * 1024 - c;
 
 
 		/*
@@ -708,6 +708,7 @@ c_execdir(char *ignored, char ***argvp, int unused)
 	return (new);
 }
 
+#ifndef OBASE
 /*
  * -flags functions --
  *
@@ -729,6 +730,7 @@ f_flags(PLAN *plan, FTSENT *entry)
 		return (flags == plan->fl_flags);
 	/* NOTREACHED */
 }
+#endif
 
 PLAN *
 c_flags(char *flags_str, char ***ignored, int unused)

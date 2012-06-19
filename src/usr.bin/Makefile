@@ -32,6 +32,7 @@ SUBDIR +=	env
 SUBDIR +=	expand
 SUBDIR +=	false
 SUBDIR +=	fgen
+#SUBDIR +=	find
 SUBDIR +=	file
 SUBDIR +=	file2c
 SUBDIR +=	finger
