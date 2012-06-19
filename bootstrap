@@ -35,13 +35,16 @@ cp -f src/usr.bin/lorder/lorder.sh "$TMP"/lorder ; chmod 755 "$TMP"/lorder
 MAKE="$TMP/make"
 PATH=$TMP:$PATH
 
+# Make sure the tree is clean.
+$MAKE clean
+
 (cd libobase && $MAKE)
 
 # Make the whole tree using our tools.
-PATH="$PATH" $MAKE
+env PATH="$PATH" MAKECONF="$TMP/mk.conf" $MAKE
 
 cp -f src/usr.bin/xinstall/xinstall "$TMP"/install
 cp -f src/usr.sbin/mtree/mtree "$TMP"/
 
-$SUDO env DESTDIR="$MY_DESTDIR" PATH="$PATH" $MAKE distrib-dirs
-$SUDO env DESTDIR="$MY_DESTDIR" PATH="$PATH" $MAKE install
+$SUDO env MAKECONF="$TMP/mk.conf" DESTDIR="$MY_DESTDIR" PATH="$PATH" $MAKE distrib-dirs
+$SUDO env MAKECONF="$TMP/mk.conf" DESTDIR="$MY_DESTDIR" PATH="$PATH" $MAKE install

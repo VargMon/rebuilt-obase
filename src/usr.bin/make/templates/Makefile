@@ -8,8 +8,12 @@ FILES=	bsd.README bsd.dep.mk bsd.lib.mk bsd.man.mk bsd.nls.mk \
 	bsd.xconf.mk bsd.xorg.mk
 NOOBJ=	noobj
 
+BINDIR?=	/usr/share
+SYSCONFDIR?=	/etc
+
 install:
 	${INSTALL} ${INSTALL_COPY} -o ${BINOWN} -g ${BINGRP} -m 444 ${FILES} \
 	    ${DESTDIR}${BINDIR}/mk
+	${INSTALL} ${INSTALL_COPY} -o root -g 0 -m 644 mk.conf ${SYSCONFDIR}
 
 .include <bsd.prog.mk>

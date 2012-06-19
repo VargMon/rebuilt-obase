@@ -1,5 +1,7 @@
 #	$OpenBSD: Makefile,v 1.52 2010/10/17 22:54:37 schwarze Exp $
 
+SUBDIR=	templates
+
 PROG=	make
 MACHINE_ARCH != uname -m
 # This will break on some architectures,
