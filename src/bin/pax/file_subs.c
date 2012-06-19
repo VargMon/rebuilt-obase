@@ -693,7 +693,7 @@ set_ftime(char *fnm, time_t mtime, time_t atime, int frc)
 void
 fset_ftime(char *fnm, int fd, time_t mtime, time_t atime, int frc)
 {
-	static struct timeval tv[2] = {{0L, 0L}, {0L, 0L}};
+	static struct timespec tv[2] = {{0L, 0L}, {0L, 0L}};
 	struct stat sb;
 
 	tv[0].tv_sec = (long)atime;
@@ -714,7 +714,7 @@ fset_ftime(char *fnm, int fd, time_t mtime, time_t atime, int frc)
 	/*
 	 * set the times
 	 */
-	if (futimes(fd, tv) < 0)
+	if (futimens(fd, tv) < 0)
 		syswarn(1, errno, "Access/modification time set failed on: %s",
 		    fnm);
 	return;
