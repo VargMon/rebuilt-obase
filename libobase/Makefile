@@ -13,5 +13,6 @@ SRCS=   bsd_getopt.c setmode.c strtonum.c strlcpy.c getbsize.c user_from_uid.c \
 
 COPTS+= -isystem ${.CURDIR}/include -DOBASE -Wall
 COPTS+= -DMACHINE='"${MACHINE}"' -DMACHINE_ARCH='"${MACHINE_ARCH}"'
+COPTS+= -D_GNU_SOURCE
 
 .include <bsd.lib.mk>

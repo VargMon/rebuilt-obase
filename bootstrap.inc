@@ -42,7 +42,7 @@ link_objs()
 
 CC=${CC:-cc}
 CFLAGS=${CFLAGS:--O2 -pipe}
-CFLAGS="$CFLAGS -isystem $OBASE/include -DOBASE"
+CFLAGS="$CFLAGS -isystem $OBASE/include -DOBASE -D_GNU_SOURCE"
 LDFLAGS=${LDFLAGS:--static}
 
 MARCH=`uname -m`
