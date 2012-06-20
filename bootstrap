@@ -44,6 +44,8 @@ $MAKE clean
 echo '#!/bin/sh' > "$TMP/mandoc" ; chmod 755 "$TMP/mandoc"
 (cd src/usr.bin/mandoc ; env PATH="$PATH" MAKECONF="$TMP/mk.conf" $MAKE)
 cp -f src/usr.bin/mandoc/mandoc "$TMP"/
+(cd src/usr.bin/yacc ; env PATH="$PATH" MAKECONF="$TMP/mk.conf" $MAKE)
+cp -f src/usr.bin/yacc/yacc "$TMP"/
 
 # Make the whole tree using our tools.
 env PATH="$PATH" MAKECONF="$TMP/mk.conf" $MAKE
