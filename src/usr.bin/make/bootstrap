@@ -17,13 +17,14 @@
 
 set -eu
 
-BASE=$(cd -- "$(dirname -- "$0")"; pwd)
-OBASE=../../../libobase
+CURDIR=$(cd -- "$(dirname -- "$0")"; pwd)
+BASE=$(cd -- "$(dirname -- "$0")/../../.."; pwd)
+OBASE=$BASE/libobase
 OHASH_DIR=$OBASE
 
-. "${OBASE}/../bootstrap.inc"
+. "${BASE}/bootstrap.inc"
 
-CFLAGS="$CFLAGS -I${BASE} -DHAS_BOOL_H -DHAS_PATHS_H -DHAS_EXTENDED_GETCWD -DMACHINE_ARCH=\"${MARCH}\""
+CFLAGS="$CFLAGS -I${CURDIR} -DHAS_BOOL_H -DHAS_PATHS_H -DHAS_EXTENDED_GETCWD -DMACHINE_ARCH=\"${MARCH}\""
 LDFLAGS="${LDFLAGS} -lrt"
 
 SRCS="$LIBOHASH_SRCS generate.c stats.c memory.c"

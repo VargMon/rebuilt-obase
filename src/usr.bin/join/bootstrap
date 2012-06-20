@@ -17,10 +17,11 @@
 
 set -eu
 
-OBASE=../../../libobase
+BASE=$(cd -- "$(dirname -- "$0")/../../.."; pwd)
+OBASE=$BASE/libobase
 OHASH_DIR=$OBASE
 
-. "${OBASE}/../bootstrap.inc"
+. "${BASE}/bootstrap.inc"
 
 SRCS="	join.c $OBASE/fgetln.c $OBASE/bsd_getopt.c"
 
