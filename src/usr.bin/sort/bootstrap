@@ -18,7 +18,7 @@
 set -eu
 
 BASE=$(cd -- "$(dirname -- "$0")/../../.."; pwd)
-OBASE=$BASE/libobase
+OBASE=$BASE/lib/libobase
 
 . "$BASE/bootstrap.inc"
 

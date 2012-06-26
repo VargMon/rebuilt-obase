@@ -38,7 +38,7 @@ PATH=$TMP:$PATH
 # Make sure the tree is clean.
 $MAKE clean
 
-(cd libobase && $MAKE)
+(cd lib/libobase && MAKECONF="$TMP/mk.conf" $MAKE)
 
 # Cheat by making a stub mandoc
 echo '#!/bin/sh' > "$TMP/mandoc" ; chmod 755 "$TMP/mandoc"
@@ -48,10 +48,21 @@ cp -f src/usr.bin/mandoc/mandoc "$TMP"/
 cp -f src/usr.bin/yacc/yacc "$TMP"/
 
 # Make the whole tree using our tools.
-env PATH="$PATH" MAKECONF="$TMP/mk.conf" $MAKE
+# The MAKE_FLAGS part for MAKECONF makes the variable
+# propagate to SUBDIRs.
+env	PATH="$PATH"					\
+	MAKECONF="$TMP/mk.conf"				\
+	$MAKE MAKE_FLAGS=MAKECONF="$TMP/mk.conf"
 
 cp -f src/usr.bin/xinstall/xinstall "$TMP"/install
 cp -f src/usr.sbin/mtree/mtree "$TMP"/
 
-$SUDO env MAKECONF="$TMP/mk.conf" DESTDIR="$MY_DESTDIR" PATH="$PATH" $MAKE distrib-dirs
-$SUDO env MAKECONF="$TMP/mk.conf" DESTDIR="$MY_DESTDIR" PATH="$PATH" $MAKE install
+$SUDO env						\
+	MAKECONF="$TMP/mk.conf"				\
+	DESTDIR="$MY_DESTDIR"				\
+	PATH="$PATH"					\
+	$MAKE						\
+		MAKE_FLAGS=MAKECONF="$TMP/mk.conf"	\
+		distrib-dirs
+		install
+

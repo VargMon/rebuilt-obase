@@ -1,6 +1,6 @@
 # Main Makefile
 
-SUBDIR +=	libobase
+SUBDIR +=	lib
 SUBDIR +=	src
 
 distrib-dirs:

@@ -18,7 +18,7 @@
 set -eu
 
 BASE=$(cd -- "$(dirname -- "$0")/../../.."; pwd)
-OBASE=$BASE/libobase
+OBASE=$BASE/lib/libobase
 OHASH_DIR=$OBASE
 
 . "${BASE}/bootstrap.inc"

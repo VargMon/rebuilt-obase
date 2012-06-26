@@ -1,0 +1,10 @@
+#
+
+COPTS+=		-isystem ${BSDSRCDIR}/lib/libobase/include -DOBASE -Wall
+COPTS+=		-DMACHINE='"${MACHINE}"' -DMACHINE_ARCH='"${MACHINE_ARCH}"'
+COPTS+=		-D_GNU_SOURCE
+HOSTCC=		${CC}
+HOSTCFLAGS+=	${COPTS}
+LIBOBASE=	${BSDSRCDIR}/lib/libobase/libobase.a
+DPADD+=		${LIBOBASE}
+LDADD+=		${LIBOBASE}

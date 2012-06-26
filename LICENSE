@@ -1,7 +1,7 @@
 src/ is straight from OpenBSD CVS with tiny modifications
 which means they have mostly BSD/ISC licensing.
 
-libobase/ is from OpenBSD CVS, FreeBSD CVS and libbsd.
+lib/libobase/ is from OpenBSD CVS, FreeBSD CVS and libbsd.
 
 The unmarked headers in libobase/include/ are in the public
 domain. Unmarked Makefiles are public domain as well as
