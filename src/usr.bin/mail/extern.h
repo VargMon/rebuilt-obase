@@ -33,6 +33,8 @@
  *	$OpenBSD: extern.h,v 1.27 2009/07/28 16:05:04 martynas Exp $
  */
 
+#include <stdarg.h>
+
 struct name;
 struct name *cat(struct name *, struct name *);
 struct name *delname(struct name *, char *);
