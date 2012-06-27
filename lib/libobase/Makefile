@@ -11,8 +11,6 @@ SRCS=   bsd_getopt.c setmode.c strtonum.c strlcpy.c getbsize.c user_from_uid.c \
  ohash_do.c            ohash_interval.c         ohash_qlookupi.c \
  ohash_entries.c       ohash_lookup_interval.c
 
-COPTS+= -isystem ${.CURDIR}/include -DOBASE -Wall
-COPTS+= -DMACHINE='"${MACHINE}"' -DMACHINE_ARCH='"${MACHINE_ARCH}"'
-COPTS+= -D_GNU_SOURCE
-
 .include <bsd.lib.mk>
+.include <bsd.own.mk>
+.include "${BSDSRCDIR}/Makefile.inc"
