@@ -1066,7 +1066,7 @@ int
 cvs_file_copy(const char *from, const char *to)
 {
 	struct stat st;
-	struct timeval tv[2];
+	struct timespec tv[2];
 	time_t atime, mtime;
 	int src, dst, ret;
 
@@ -1121,10 +1121,10 @@ cvs_file_copy(const char *from, const char *to)
 		tv[0].tv_sec = atime;
 		tv[1].tv_sec = mtime;
 
-		if (futimes(dst, tv) == -1) {
+		if (futimens(dst, tv) == -1) {
 			saved_errno = errno;
 			(void)unlink(to);
-			fatal("cvs_file_copy: futimes: %s",
+			fatal("cvs_file_copy: futimens: %s",
 			    strerror(saved_errno));
 		}
 		(void)close(dst);

@@ -44,6 +44,6 @@ size_t		 buf_len(BUF *);
 int		 buf_write_fd(BUF *, int);
 int		 buf_write(BUF *, const char *, mode_t);
 int		 buf_differ(const BUF *, const BUF *);
-int		 buf_write_stmp(BUF *, char *, struct timeval *);
+int		 buf_write_stmp(BUF *, char *, struct timespec *);
 
 #endif	/* BUF_H */

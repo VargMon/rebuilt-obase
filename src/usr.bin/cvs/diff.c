@@ -304,7 +304,7 @@ cvs_diff_local(struct cvs_file *cf)
 	BUF *b1;
 	int fd1, fd2;
 	struct stat st;
-	struct timeval tv[2], tv2[2];
+	struct timespec tv[2], tv2[2];
 	struct tm datetm;
 	char rbuf[CVS_REV_BUFSZ], tbuf[CVS_TIME_BUFSZ], *p1, *p2;
 
@@ -484,13 +484,13 @@ cvs_diff_local(struct cvs_file *cf)
 		}
 
 		tv[0].tv_sec = rcs_rev_getdate(cf->file_rcs, diff_rev1);
-		tv[0].tv_usec = 0;
+		tv[0].tv_nsec = 0;
 		tv[1] = tv[0];
 
 		(void)xasprintf(&p1, "%s/diff1.XXXXXXXXXX", cvs_tmpdir);
 		fd1 = rcs_rev_write_stmp(cf->file_rcs, diff_rev1, p1, 0);
-		if (futimes(fd1, tv) == -1)
-			fatal("cvs_diff_local: utimes failed");
+		if (futimens(fd1, tv) == -1)
+			fatal("cvs_diff_local: futimens failed");
 	}
 
 	if (diff_rev2 != NULL) {
@@ -500,13 +500,13 @@ cvs_diff_local(struct cvs_file *cf)
 		}
 
 		tv2[0].tv_sec = rcs_rev_getdate(cf->file_rcs, diff_rev2);
-		tv2[0].tv_usec = 0;
+		tv2[0].tv_nsec = 0;
 		tv2[1] = tv2[0];
 
 		(void)xasprintf(&p2, "%s/diff2.XXXXXXXXXX", cvs_tmpdir);
 		fd2 = rcs_rev_write_stmp(cf->file_rcs, diff_rev2, p2, 0);
-		if (futimes(fd2, tv2) == -1)
-			fatal("cvs_diff_local: utimes failed");
+		if (futimens(fd2, tv2) == -1)
+			fatal("cvs_diff_local: futimens failed");
 	} else if (cvs_cmdop == CVS_OP_DIFF &&
 	    (cf->file_flags & FILE_ON_DISK) &&
 	    cf->file_ent->ce_status != CVS_ENT_REMOVED) {
@@ -514,20 +514,20 @@ cvs_diff_local(struct cvs_file *cf)
 		if (cvs_server_active == 1 && cf->fd == -1) {
 			tv2[0].tv_sec = rcs_rev_getdate(cf->file_rcs,
 			    cf->file_ent->ce_rev);
-			tv2[0].tv_usec = 0;
+			tv2[0].tv_nsec = 0;
 			tv2[1] = tv2[0];
 
 			fd2 = rcs_rev_write_stmp(cf->file_rcs,
 			    cf->file_ent->ce_rev, p2, 0);
-			if (futimes(fd2, tv2) == -1)
-				fatal("cvs_diff_local: futimes failed");
+			if (futimens(fd2, tv2) == -1)
+				fatal("cvs_diff_local: futimens failed");
 		} else {
 			if (fstat(cf->fd, &st) == -1)
 				fatal("fstat failed %s", strerror(errno));
 			b1 = buf_load_fd(cf->fd);
 
 			tv2[0].tv_sec = st.st_mtime;
-			tv2[0].tv_usec = 0;
+			tv2[0].tv_nsec = 0;
 			tv2[1] = tv2[0];
 
 			fd2 = buf_write_stmp(b1, p2, tv2);

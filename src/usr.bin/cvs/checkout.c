@@ -472,7 +472,7 @@ cvs_checkout_file(struct cvs_file *cf, RCSNUM *rnum, char *tag, int co_flags)
 	int cf_kflag, exists;
 	time_t rcstime;
 	CVSENTRIES *ent;
-	struct timeval tv[2];
+	struct timespec tv[2];
 	struct tm datetm;
 	char *entry, *tosend;
 	char kbuf[8], sticky[CVS_REV_BUFSZ], rev[CVS_REV_BUFSZ];
@@ -530,10 +530,10 @@ cvs_checkout_file(struct cvs_file *cf, RCSNUM *rnum, char *tag, int co_flags)
 			time(&rcstime);
 
 		tv[0].tv_sec = rcstime;
-		tv[0].tv_usec = 0;
+		tv[0].tv_nsec = 0;
 		tv[1] = tv[0];
-		if (futimes(cf->fd, tv) == -1)
-			fatal("cvs_checkout_file: futimes: %s",
+		if (futimens(cf->fd, tv) == -1)
+			fatal("cvs_checkout_file: futimens: %s",
 			    strerror(errno));
 	} else {
 		time(&rcstime);

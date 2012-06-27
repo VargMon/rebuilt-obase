@@ -72,7 +72,7 @@ rcs_get_mtime(RCSFILE *file)
 void
 rcs_set_mtime(RCSFILE *file, time_t mtime)
 {
-	static struct timeval tv[2];
+	static struct timespec tv[2];
 
 	if (file->rf_file == NULL || mtime == -1)
 		return;
@@ -80,8 +80,8 @@ rcs_set_mtime(RCSFILE *file, time_t mtime)
 	tv[0].tv_sec = mtime;
 	tv[1].tv_sec = tv[0].tv_sec;
 
-	if (futimes(fileno(file->rf_file), tv) == -1)
-		err(1, "utimes");
+	if (futimens(fileno(file->rf_file), tv) == -1)
+		err(1, "futimens");
 }
 
 int

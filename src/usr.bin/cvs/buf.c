@@ -239,7 +239,7 @@ open:
  * NB. This function will modify <template>, as per mkstemp
  */
 int
-buf_write_stmp(BUF *b, char *template, struct timeval *tv)
+buf_write_stmp(BUF *b, char *template, struct timespec *tv)
 {
 	int fd;
 
@@ -252,8 +252,8 @@ buf_write_stmp(BUF *b, char *template, struct timeval *tv)
 	}
 
 	if (tv != NULL) {
-		if (futimes(fd, tv) == -1)
-			fatal("buf_write_stmp: futimes failed");
+		if (futimens(fd, tv) == -1)
+			fatal("buf_write_stmp: futimens failed");
 	}
 
 	worklist_add(template, &temp_files);

@@ -699,7 +699,7 @@ cvs_client_updated(char *data)
 	struct cvs_ent *e;
 	const char *errstr;
 	struct tm datetm;
-	struct timeval tv[2];
+	struct timespec tv[2];
 	char repo[MAXPATHLEN], *entry;
 	char timebuf[CVS_TIME_BUFSZ], revbuf[CVS_REV_BUFSZ];
 	char *en, *mode, *len, *rpath, *p;
@@ -777,11 +777,11 @@ cvs_client_updated(char *data)
 	cvs_remote_receive_file(fd, flen);
 
 	tv[0].tv_sec = now;
-	tv[0].tv_usec = 0;
+	tv[0].tv_nsec = 0;
 	tv[1] = tv[0];
 
-	if (futimes(fd, tv) == -1)
-		fatal("cvs_client_updated: futimes: %s", strerror(errno));
+	if (futimens(fd, tv) == -1)
+		fatal("cvs_client_updated: futimens: %s", strerror(errno));
 
 	if (fchmod(fd, fmode) == -1)
 		fatal("cvs_client_updated: fchmod: %s", strerror(errno));
@@ -800,7 +800,7 @@ cvs_client_merged(char *data)
 	size_t flen;
 	CVSENTRIES *ent;
 	const char *errstr;
-	struct timeval tv[2];
+	struct timespec tv[2];
 	struct tm datetm;
 	char timebuf[CVS_TIME_BUFSZ], *repo, *rpath, *entry, *mode;
 	char *len, *fpath, *wdir;
@@ -854,11 +854,11 @@ cvs_client_merged(char *data)
 	cvs_remote_receive_file(fd, flen);
 
 	tv[0].tv_sec = now;
-	tv[0].tv_usec = 0;
+	tv[0].tv_nsec = 0;
 	tv[1] = tv[0];
 
-	if (futimes(fd, tv) == -1)
-		fatal("cvs_client_merged: futimes: %s", strerror(errno));
+	if (futimens(fd, tv) == -1)
+		fatal("cvs_client_merged: futimens: %s", strerror(errno));
 
 	if (fchmod(fd, fmode) == -1)
 		fatal("cvs_client_merged: fchmod: %s", strerror(errno));

@@ -483,12 +483,12 @@ checkout_rev(RCSFILE *file, RCSNUM *frev, const char *dst, int flags,
 			warn("%s", dst);
 
 		if (flags & CO_REVDATE) {
-			struct timeval tv[2];
+			struct timespec tv[2];
 			memset(&tv, 0, sizeof(tv));
 			tv[0].tv_sec = (long)rcs_rev_getdate(file, rev);
 			tv[1].tv_sec = tv[0].tv_sec;
-			if (futimes(fd, (const struct timeval *)&tv) < 0)
-				warn("utimes");
+			if (futimens(fd, (const struct timespec *)&tv) < 0)
+				warn("futimens");
 		}
 
 		(void)close(fd);
