@@ -1,8 +1,12 @@
 /*	$OpenBSD$	*/
+/*	$NetBSD: ndbm.h,v 1.6 1995/07/20 23:31:11 jtc Exp $	*/
 
 /*-
- * Copyright (c) 1991, 1993
+ * Copyright (c) 1990, 1993
  *	The Regents of the University of California.  All rights reserved.
+ *
+ * This code is derived from software contributed to Berkeley by
+ * Margo Seltzer.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -27,71 +31,48 @@
  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
+ *
+ *	@(#)ndbm.h	8.1 (Berkeley) 6/2/93
  */
 
-#include <sys/types.h>
-
-#include <errno.h>
-#include <fcntl.h>
-#include <stddef.h>
-#include <stdio.h>
+#ifndef _NDBM_H_
+#define	_NDBM_H_
 
 #include <db.h>
 
-#ifndef O_EXLOCK
-#ifdef O_EXCL
-#define O_EXLOCK O_EXCL
-#endif
-#endif
+/* Map dbm interface onto db(3). */
+#define DBM_RDONLY	O_RDONLY
 
-static int __dberr(void);
-
-DB *
-dbopen(const char *fname, int flags, int mode, DBTYPE type,
-    const void *openinfo)
-{
-
-#define	DB_FLAGS	(DB_LOCK | DB_SHMEM | DB_TXN)
-#define	USE_OPEN_FLAGS							\
-	(O_CREAT | O_EXCL | O_EXLOCK | O_NOFOLLOW | O_NONBLOCK | 	\
-	 O_RDONLY | O_RDWR | O_SYNC | O_TRUNC)
-
-	if ((flags & ~(USE_OPEN_FLAGS | DB_FLAGS)) == 0)
-		switch (type) {
-		case DB_BTREE:
-			return (__bt_open(fname, flags & USE_OPEN_FLAGS,
-			    mode, openinfo, flags & DB_FLAGS));
-		case DB_HASH:
-			return (__hash_open(fname, flags & USE_OPEN_FLAGS,
-			    mode, openinfo, flags & DB_FLAGS));
-		case DB_RECNO:
-			return (__rec_open(fname, flags & USE_OPEN_FLAGS,
-			    mode, openinfo, flags & DB_FLAGS));
-		}
-	errno = EINVAL;
-	return (NULL);
-}
-
-static int
-__dberr(void)
-{
-	return (RET_ERROR);
-}
+/* Flags to dbm_store(). */
+#define DBM_INSERT      0
+#define DBM_REPLACE     1
 
 /*
- * __DBPANIC -- Stop.
- *
- * Parameters:
- *	dbp:	pointer to the DB structure.
+ * The db(3) support for ndbm(3) always appends this suffix to the
+ * file name to avoid overwriting the user's original database.
  */
-void
-__dbpanic(DB *dbp)
-{
-	/* The only thing that can succeed is a close. */
-	dbp->del = (int (*)(const struct __db *, const DBT*, u_int))__dberr;
-	dbp->fd = (int (*)(const struct __db *))__dberr;
-	dbp->get = (int (*)(const struct __db *, const DBT*, DBT *, u_int))__dberr;
-	dbp->put = (int (*)(const struct __db *, DBT *, const DBT *, u_int))__dberr;
-	dbp->seq = (int (*)(const struct __db *, DBT *, DBT *, u_int))__dberr;
-	dbp->sync = (int (*)(const struct __db *, u_int))__dberr;
-}
+#define	DBM_SUFFIX	".db"
+
+typedef struct {
+	void *dptr;
+	size_t dsize;
+} datum;
+
+typedef DB DBM;
+#define	dbm_pagfno(a)	DBM_PAGFNO_NOT_AVAILABLE
+
+__BEGIN_DECLS
+int	 dbm_clearerr(DBM *);
+void	 dbm_close(DBM *);
+int	 dbm_delete(DBM *, datum);
+int	 dbm_error(DBM *);
+datum	 dbm_fetch(DBM *, datum);
+datum	 dbm_firstkey(DBM *);
+datum	 dbm_nextkey(DBM *);
+DBM	*dbm_open(const char *, int, mode_t);
+int	 dbm_store(DBM *, datum, datum, int);
+int	 dbm_dirfno(DBM *);
+int	 dbm_rdonly(DBM *);
+__END_DECLS
+
+#endif /* !_NDBM_H_ */

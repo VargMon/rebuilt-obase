@@ -193,7 +193,7 @@ __bt_open(const char *fname, int flags, int mode, const BTREEINFO *openinfo,
 			goto einval;
 		}
 		
-		if ((t->bt_fd = open(fname, flags, mode)) < 0)
+		if ((t->bt_fd = open(fname, flags, mode)) < 0 || flock(t->bt_fd, LOCK_SH) < 0)
 			goto err;
 
 	} else {
