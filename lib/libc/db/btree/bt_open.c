@@ -194,7 +194,7 @@ __bt_open(const char *fname, int flags, int mode, const BTREEINFO *openinfo,
 		}
 		
 		if ((t->bt_fd = open(fname, flags, mode)) < 0 ||
-		    flock(t->bt_fd, LOCK_SH) < 0) {
+		    flock(t->bt_fd, LOCK_EX) < 0) {
 			if (t->bt_fd != -1)
 				close(t->bt_fd);
 			goto err;
