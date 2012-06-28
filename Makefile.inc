@@ -6,5 +6,6 @@ COPTS+=		-D_GNU_SOURCE
 HOSTCC=		${CC}
 HOSTCFLAGS+=	${COPTS}
 LIBOBASE=	${BSDSRCDIR}/lib/libobase/libobase.a
+LIBDB=		${BSDSRCDIR}/lib/libc/db/libdb.a
 DPADD+=		${LIBOBASE}
 LDADD+=		${LIBOBASE}

@@ -41,10 +41,12 @@ PATH=$TMP:$PATH
 # Make sure the tree is clean.
 $MAKE clean
 
-(cd lib/libobase && MAKECONF="$TMP/mk.conf" $MAKE)
-
 # Cheat by making a stub mandoc before making a real one.
 echo '#!/bin/sh' > "$TMP/mandoc" ; chmod 755 "$TMP/mandoc"
+
+(cd lib/libobase && MAKECONF="$TMP/mk.conf" $MAKE)
+(cd lib/libc/db && MAKECONF="$TMP/mk.conf" $MAKE)
+
 for i in src/usr.bin/mandoc src/usr.bin/yacc src/usr.bin/lex; do
 	(cd "$i"; env PATH="$PATH" MAKECONF="$TMP/mk.conf" $MAKE)
 	cp -f "$i/$(basename "$i")" "$TMP"

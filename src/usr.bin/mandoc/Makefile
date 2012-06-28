@@ -9,7 +9,8 @@ CFLAGS+=-W -Wall -Wstrict-prototypes
 CFLAGS+=-Wno-unused-parameter
 .endif
 
-LDADD= -ldb
+DPADD=	${LIBDB}
+LDADD=	${LIBDB}
 
 SRCS=	roff.c tbl.c tbl_opts.c tbl_layout.c tbl_data.c eqn.c mandoc.c read.c
 SRCS+=	mdoc_macro.c mdoc.c mdoc_hash.c \
