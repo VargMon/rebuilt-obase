@@ -2,7 +2,7 @@
 #	$NetBSD: Makefile,v 1.20.4.1 1996/06/14 17:22:38 cgd Exp $
 
 SUBDIR=		libobase
-#SUBDIR+=	libc
+SUBDIR+=	libc
 #SUBDIR+=	libssl
 
 .include <bsd.own.mk>

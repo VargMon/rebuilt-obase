@@ -193,8 +193,12 @@ __bt_open(const char *fname, int flags, int mode, const BTREEINFO *openinfo,
 			goto einval;
 		}
 		
-		if ((t->bt_fd = open(fname, flags, mode)) < 0 || flock(t->bt_fd, LOCK_SH) < 0)
+		if ((t->bt_fd = open(fname, flags, mode)) < 0 ||
+		    flock(t->bt_fd, LOCK_SH) < 0) {
+			if (t->bt_fd != -1)
+				close(t->bt_fd);
 			goto err;
+		}
 
 	} else {
 		if ((flags & O_ACCMODE) != O_RDWR)

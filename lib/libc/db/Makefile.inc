@@ -1,6 +1,6 @@
 #	$OpenBSD$
 #
-CFLAGS+=-D__DBINTERFACE_PRIVATE -D__BSD_VISIBLE
+CFLAGS+=-D__DBINTERFACE_PRIVATE
 
 .include "${LIBCSRCDIR}/db/btree/Makefile.inc"
 .include "${LIBCSRCDIR}/db/db/Makefile.inc"

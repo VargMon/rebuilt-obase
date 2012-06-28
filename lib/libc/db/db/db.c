@@ -38,12 +38,6 @@
 
 #include <db.h>
 
-#ifndef O_EXLOCK
-#ifdef O_EXCL
-#define O_EXLOCK O_EXCL
-#endif
-#endif
-
 static int __dberr(void);
 
 DB *
@@ -52,8 +46,8 @@ dbopen(const char *fname, int flags, int mode, DBTYPE type,
 {
 
 #define	DB_FLAGS	(DB_LOCK | DB_SHMEM | DB_TXN)
-#define	USE_OPEN_FLAGS							\
-	(O_CREAT | O_EXCL | O_EXLOCK | O_NOFOLLOW | O_NONBLOCK | 	\
+#define	USE_OPEN_FLAGS					\
+	(O_CREAT | O_EXCL | O_NOFOLLOW | O_NONBLOCK | 	\
 	 O_RDONLY | O_RDWR | O_SYNC | O_TRUNC)
 
 	if ((flags & ~(USE_OPEN_FLAGS | DB_FLAGS)) == 0)
