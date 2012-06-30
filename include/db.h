@@ -40,6 +40,9 @@
 
 #include <limits.h>
 
+#ifndef EFTYPE
+#define EFTYPE		5000		/* Workaround if EFTYPE is missing */
+#endif
 #define	RET_ERROR	-1		/* Return values. */
 #define	RET_SUCCESS	 0
 #define	RET_SPECIAL	 1
