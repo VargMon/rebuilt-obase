@@ -3,7 +3,7 @@ which means they have mostly BSD/ISC licensing.
 
 lib/libobase/ is from OpenBSD CVS, FreeBSD CVS and libbsd.
 
-The unmarked headers in libobase/include/ are in the public
+The unmarked headers in include/ are in the public
 domain. Unmarked Makefiles are public domain as well as
 they probably don't contain enough material to be copyrightable
 in the first place.
