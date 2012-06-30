@@ -91,6 +91,11 @@ distribution-etc-root-var distribution distrib-dirs release:
 	@false
 .else
 distribution-etc-root-var: distrib-dirs
+	${INSTALL} -c -o root -g wheel -m 644 passwd ${DESTDIR}/etc
+	${INSTALL} -c -o root -g wheel -m 600 shadow ${DESTDIR}/etc
+	${INSTALL} -c -o root -g wheel -m 644 group ${DESTDIR}/etc
+
+openbsd-distribution-etc-root-var: distrib-dirs
 	${INSTALL} -c -o ${BINOWN} -g ${BINGRP} -m 644 ${BIN1} ${DESTDIR}/etc
 	ksh ttys.pty | cat etc.${MACHINE}/ttys - > ${DESTDIR}/etc/ttys && \
 	    chown ${BINOWN} ${DESTDIR}/etc/ttys && \
