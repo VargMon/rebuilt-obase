@@ -16,3 +16,6 @@
 
 #include_next <sys/time.h>
 #include_next <time.h>
+
+#define tm_zone __tm_zone
+
