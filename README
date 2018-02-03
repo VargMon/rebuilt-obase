@@ -26,6 +26,8 @@ This is very alpha, and the tools haven't been tested very well yet.
 At least the ALIGN-macro is defined only meaningfully for x86_64.
 
 Original author: Christian Neukirchen <chneukirchen@gmail.com>
-Author of this fork: Antti Harri <iku@openbsd.fi>
+Author of fork that this fork was forked from: Antti Harri <iku@openbsd.fi>
+Author of this git fork: VargMon
 
-Please contact the latter about possible problems.
+Please note that this is a highly untested/experimental fork, beware.
+And that this a work in progress.
