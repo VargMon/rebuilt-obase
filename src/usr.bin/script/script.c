@@ -71,7 +71,6 @@
 #include <termios.h>
 #include <tzfile.h>
 #include <unistd.h>
-#include <obase.h>
 
 #include <util.h>
 #include <err.h>

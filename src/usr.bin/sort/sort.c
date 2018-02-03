@@ -51,7 +51,6 @@
 #include <string.h>
 #include <unistd.h>
 #include <err.h>
-#include <obase.h>
 
 int REC_D = '\n';
 u_char d_mask[NBINS];		/* flags for rec_d, field_d, <blank> */

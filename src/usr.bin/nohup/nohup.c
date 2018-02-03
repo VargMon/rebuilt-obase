@@ -41,7 +41,6 @@
 #include <string.h>
 #include <errno.h>
 #include <err.h>
-#include <obase.h>
 
 static void dofile(void);
 __dead static void usage(void);

@@ -37,7 +37,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <obase.h>
 
 #define	ungetchar(c)	ungetc(c, stdin)
 

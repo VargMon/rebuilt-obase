@@ -44,7 +44,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <obase.h>
 
 #include "defs.h"
 #include "extern.h"

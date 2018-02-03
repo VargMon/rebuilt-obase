@@ -13,7 +13,6 @@
 #include <ctype.h>
 #include <regex.h>
 #include <err.h>
-#include <obase.h>
 
 struct val	*make_int(int);
 struct val	*make_str(char *);

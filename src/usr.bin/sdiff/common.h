@@ -4,5 +4,4 @@
  * Written by Raymond Lai <ray@cyth.net>.
  * Public domain.
  */
-#include <obase.h>
 __dead void cleanup(const char *);

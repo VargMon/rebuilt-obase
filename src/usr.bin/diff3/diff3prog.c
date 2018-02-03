@@ -69,7 +69,6 @@
 #include <string.h>
 #include <ctype.h>
 #include <err.h>
-#include <obase.h>
 
 /* diff3 - 3-way differential file comparison */
 

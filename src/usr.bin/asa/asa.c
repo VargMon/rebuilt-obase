@@ -36,7 +36,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include <obase.h>
 
 void asa(FILE *);
 __dead void usage(void);

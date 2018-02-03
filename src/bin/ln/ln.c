@@ -33,7 +33,6 @@
 #include <sys/param.h>
 #include <sys/stat.h>
 
-#include <obase.h>
 #include <err.h>
 #include <errno.h>
 #include <libgen.h>

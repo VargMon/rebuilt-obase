@@ -68,7 +68,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include <obase.h>
 
 /*
  *	Deroff command -- strip troff, eqn, and Tbl sequences from
